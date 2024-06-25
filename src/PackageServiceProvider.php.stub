@@ -1,0 +1,18 @@
+<?php
+
+declare(strict_types=1);
+
+namespace {{VENDOR}}\{{PACKAGE}};
+
+use Spatie\LaravelPackageTools\Package;
+use Spatie\LaravelPackageTools\PackageServiceProvider as ServiceProvider;
+
+class {{PACKAGE}}ServiceProvider extends ServiceProvider
+{
+    public function configurePackage(Package $package): void
+    {
+        $package
+            ->name('{{package}}')
+            ->hasViews('{{package}}');
+    }
+}
