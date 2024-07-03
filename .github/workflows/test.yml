@@ -1,0 +1,46 @@
+name: Run Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main, dev]
+
+jobs:
+  tests:
+    name: Run tests
+    strategy:
+      matrix:
+        os: [ ubuntu-latest ]
+        php: [ 8.3, 8.2 ]
+        laravel: [ 11.*, 10.* ]
+        include:
+          - laravel: 11.*
+            orchestra: 9.*
+          - laravel: 10.*
+            orchestra: 8.*
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '${{ matrix.php  }}'
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv
+          coverage: none
+
+      # Remove when plugin is initialized
+      - name: Initialize Plugin
+        run: |
+          ./package init:plugin asciito filament-plugin-test --dont-delete-cli
+
+      - name: Install Dependencies
+        run: |
+          composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.orchestra }}" "php:^${{ matrix.php }}" --no-interaction --no-update
+          composer update --prefer-stable --prefer-dist --no-interaction
+
+      - name: Run lint
+        run: vendor/bin/phpstan analyze --memory-limit=2G
