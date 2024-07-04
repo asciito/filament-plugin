@@ -1,5 +1,7 @@
 <!--TODO: Add logo-->
-<p align="center"><img width="300" src="/art/logo.svg" alt="Filament Plugin Logo"></p>
+<p align="center">
+    <img width="800" src="https://banners.beyondco.de/{{Package}}.png?theme=light&packageManager=composer+require&packageName={{vendor}}%2F{{package}}&pattern=architect&style=style_2&description={{description}}&md=1&showWatermark=1&fontSize=180px&images=archive&widths=400&heights=400" alt="Filament Plugin Art">
+</p>
 
 <p align="center">
     <a href="https://packagist.org/packages/{{vendor}}/{{package}}">
@@ -72,4 +74,4 @@ vendor/bin/pest
 ---
 ## License
 
-**{{PACKAGE}}** is open-sourced software licensed under the [**MIT License**](./LICENSE.md).
+**{{Package}}** is open-sourced software licensed under the [**MIT License**](./LICENSE.md).
