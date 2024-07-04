@@ -11,7 +11,7 @@
 |
 */
 
-uses({{VENDOR}}\{{PACKAGE}}\Tests\TestCase::class)->in('Feature');
+uses({{Vendor}}\{{Package}}\Tests\TestCase::class)->in('Feature');
 
 /*
 |--------------------------------------------------------------------------

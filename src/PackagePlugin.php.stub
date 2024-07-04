@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace {{VENDOR}}\{{PACKAGE}};
+namespace {{Vendor}}\{{Package}};
 
 use Filament\Contracts\Plugin;
 use Filament\Panel;
 
-class {{PACKAGE}}Plugin implements Plugin
+class {{Package}}Plugin implements Plugin
 {
     public static function get(): static
     {
@@ -30,7 +30,7 @@ class {{PACKAGE}}Plugin implements Plugin
     public function register(Panel $panel): void
     {
         $panel
-            ->discoverLivewireComponents(__DIR__.'/Livewire', '{{VENDOR}}\\{{PACKAGE}}\\Livewire');
+            ->discoverLivewireComponents(__DIR__.'/Livewire', '{{Vendor}}\\{{Package}}\\Livewire');
     }
 
     public function boot(Panel $panel): void

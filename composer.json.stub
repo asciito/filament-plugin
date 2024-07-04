@@ -21,13 +21,13 @@
     },
     "autoload": {
         "psr-4": {
-            "{{VENDOR}}\\{{PACKAGE}}\\": "src/",
-            "{{VENDOR}}\\{{PACKAGE}}\\Database\\Factories\\": "database/factories"
+            "{{Vendor}}\\{{Package}}\\": "src/",
+            "{{Vendor}}\\{{Package}}\\Database\\Factories\\": "database/factories"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "{{VENDOR}}\\{{PACKAGE}}\\Tests\\": "tests/",
+            "{{Vendor}}\\{{Package}}\\Tests\\": "tests/",
             "Workbench\\App\\": "workbench/app/",
             "Workbench\\Database\\Factories\\": "workbench/database/factories/",
             "Workbench\\Database\\Seeders\\": "workbench/database/seeders/"
@@ -36,7 +36,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "{{VENDOR}}\\{{PACKAGE}}\\{{PACKAGE}}ServiceProvider"
+                "{{Vendor}}\\{{Package}}\\{{Package}}ServiceProvider"
             ]
         }
     },
