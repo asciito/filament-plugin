@@ -35,7 +35,7 @@ jobs:
       # Remove when plugin is initialized
       - name: Initialize Plugin
         run: |
-          ./package init:plugin asciito filament-plugin-test --dont-delete-cli
+          ./plugin init asciito filament-plugin-test --dont-delete-cli
 
       - name: Install Dependencies
         run: |
