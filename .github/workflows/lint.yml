@@ -35,7 +35,7 @@ jobs:
       # Remove when plugin is initialized
       - name: Initialize Plugin
         run: |
-          ./plugin init asciito filament-plugin-test "Ayax Córdova" example@mail.com
+          ./plugin init asciito filament-plugin-test "Ayax Córdova" example@mail.com --no-interaction
 
       - name: Install Dependencies
         run: |
@@ -43,4 +43,4 @@ jobs:
           composer update --prefer-stable --prefer-dist --no-interaction
 
       - name: Run Static Analysis
-        run: ./vendor/bin/phpstan --error-format=github
+        run: vendor/bin/phpstan --error-format=github

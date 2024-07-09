@@ -35,7 +35,7 @@ jobs:
       # Remove when plugin is initialized
       - name: Initialize Plugin
         run: |
-          ./plugin init asciito filament-plugin-test "Ayax Córdova" example@mail.com
+          ./plugin init asciito filament-plugin-test "Ayax Córdova" example@mail.com --no-interaction
 
       - name: Install Dependencies
         run: |
