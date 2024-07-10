@@ -1,6 +1,6 @@
 <!--TODO: Add logo-->
 <p align="center">
-    <img width="800" src="https://banners.beyondco.de/{{Package}}.png?theme=light&packageManager=composer+require&packageName={{vendor}}%2F{{package}}&pattern=architect&style=style_2&description={{description}}&md=1&showWatermark=1&fontSize=180px&images=archive&widths=400&heights=400" alt="Filament Plugin Art">
+    <img width="800" src="https://banners.beyondco.de/{{package:title}}.png?theme=light&packageManager=composer+require&packageName={{vendor}}%2F{{package}}&pattern=architect&style=style_2&description={{description}}&md=1&showWatermark=1&fontSize=180px&images=archive&widths=400&heights=400" alt="Filament Plugin Art">
 </p>
 
 <p align="center">
@@ -74,4 +74,4 @@ vendor/bin/pest
 ---
 ## License
 
-**{{Package}}** is open-sourced software licensed under the [**MIT License**](./LICENSE.md).
+**{{package:title}}** is open-sourced software licensed under the [**MIT License**](./LICENSE.md).
