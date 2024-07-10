@@ -74,4 +74,4 @@ vendor/bin/pest
 ---
 ## License
 
-**{{Package}}** is open-sourced software licensed under the [**MIT License**](./LICENSE.md).
+**{{package:title}}** is open-sourced software licensed under the [**MIT License**](./LICENSE.md).
