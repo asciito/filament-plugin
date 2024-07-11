@@ -1,0 +1,68 @@
+import fs from 'fs';
+import path from 'path';
+import { defineConfig } from 'vite';
+import laravel, { refreshPaths } from 'laravel-vite-plugin';
+
+function laravelPackage(config) {
+    const laravelPlugin = laravel(config);
+
+    return [laravelPlugin, symlinkHotFilePlugin(config.hotFile)]
+}
+
+function symlinkHotFilePlugin(hotFile) {
+    const symlinkFile = 'vendor/orchestra/testbench-core/laravel/public/vendor/{{package}}/hot';
+
+    return {
+        name: "laravel-package",
+        configureServer: ( server ) => {
+            const ensureDirectoryExists = () => {
+                const dir = path.dirname(symlinkFile);
+
+                if (fs.existsSync(dir)) {
+                    return;
+                }
+
+                fs.mkdirSync(dir);
+            }
+
+            server.httpServer?.once("listening", () => {
+                if (fs.existsSync(hotFile) && !fs.existsSync(symlinkFile)) {
+                    ensureDirectoryExists();
+
+                    fs.symlinkSync(fs.realpathSync(hotFile), symlinkFile);
+                }
+            });
+
+            const remove = () => {
+                if (! fs.existsSync(hotFile) && fs.existsSync(symlinkFile)) {
+                    fs.unlinkSync(symlinkFile);
+                }
+
+            };
+
+            process.on("exit", remove);
+            process.on("SIGINT", () => process.exit());
+            process.on("SIGTERM", () => process.exit());
+            process.on("SIGHUP", () => process.exit());
+        }
+    }
+}
+
+export default defineConfig({
+    plugins: [
+        laravelPackage({
+            hotFile: 'resources/dist/hot',
+            buildDirectory: 'dist',
+            publicDirectory: 'resources',
+            input: ['resources/css/plugin.css', 'resources/js/plugin.js'],
+            refresh: [
+                'lang/**',
+                'routes/*',
+                'src/Livewire/**',
+                'src/Filament/**',
+                'resources/lang/**',
+                'resources/views/**',
+            ]
+        }),
+    ],
+});
