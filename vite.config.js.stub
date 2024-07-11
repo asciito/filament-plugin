@@ -1,57 +1,26 @@
 import fs from 'fs';
 import path from 'path';
 import { defineConfig } from 'vite';
-import laravel, { refreshPaths } from 'laravel-vite-plugin';
+import laravel from 'laravel-vite-plugin';
 
 function laravelPackage(config) {
-    const laravelPlugin = laravel(config);
+    const ensureDirectoryExists = () => {
+        const dir = path.dirname(config.hotFile);
 
-    return [laravelPlugin, symlinkHotFilePlugin(config.hotFile)]
-}
+        if (fs.existsSync(dir)) return;
 
-function symlinkHotFilePlugin(hotFile) {
-    const symlinkFile = 'vendor/orchestra/testbench-core/laravel/public/vendor/{{package}}/hot';
+        fs.mkdirSync(dir, { recursive: true });
+    };
 
-    return {
-        name: "laravel-package",
-        configureServer: ( server ) => {
-            const ensureDirectoryExists = () => {
-                const dir = path.dirname(symlinkFile);
+    ensureDirectoryExists();
 
-                if (fs.existsSync(dir)) {
-                    return;
-                }
-
-                fs.mkdirSync(dir);
-            }
-
-            server.httpServer?.once("listening", () => {
-                if (fs.existsSync(hotFile) && !fs.existsSync(symlinkFile)) {
-                    ensureDirectoryExists();
-
-                    fs.symlinkSync(fs.realpathSync(hotFile), symlinkFile);
-                }
-            });
-
-            const remove = () => {
-                if (! fs.existsSync(hotFile) && fs.existsSync(symlinkFile)) {
-                    fs.unlinkSync(symlinkFile);
-                }
-
-            };
-
-            process.on("exit", remove);
-            process.on("SIGINT", () => process.exit());
-            process.on("SIGTERM", () => process.exit());
-            process.on("SIGHUP", () => process.exit());
-        }
-    }
+    return laravel(config);
 }
 
 export default defineConfig({
     plugins: [
         laravelPackage({
-            hotFile: 'resources/dist/hot',
+            hotFile: 'vendor/orchestra/testbench-core/laravel/public/vendor/{{package}}/hot',
             buildDirectory: 'dist',
             publicDirectory: 'resources',
             input: ['resources/css/plugin.css', 'resources/js/plugin.js'],
