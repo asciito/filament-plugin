@@ -1,0 +1,37 @@
+import fs from 'fs';
+import path from 'path';
+import { defineConfig } from 'vite';
+import laravel from 'laravel-vite-plugin';
+
+function laravelPackage(config) {
+    const ensureDirectoryExists = () => {
+        const dir = path.dirname(config.hotFile);
+
+        if (fs.existsSync(dir)) return;
+
+        fs.mkdirSync(dir, { recursive: true });
+    };
+
+    ensureDirectoryExists();
+
+    return laravel(config);
+}
+
+export default defineConfig({
+    plugins: [
+        laravelPackage({
+            hotFile: 'vendor/orchestra/testbench-core/laravel/public/vendor/{{package}}/hot',
+            buildDirectory: 'dist',
+            publicDirectory: 'resources',
+            input: ['resources/css/plugin.css', 'resources/js/plugin.js'],
+            refresh: [
+                'lang/**',
+                'routes/*',
+                'src/Livewire/**',
+                'src/Filament/**',
+                'resources/lang/**',
+                'resources/views/**',
+            ]
+        }),
+    ],
+});

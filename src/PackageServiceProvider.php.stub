@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace {{Vendor}}\{{Package}};
 
+use Illuminate\Support\Facades\Blade;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider as ServiceProvider;
 
@@ -13,6 +14,27 @@ class {{Package}}ServiceProvider extends ServiceProvider
     {
         $package
             ->name('{{package}}')
-            ->hasViews('{{package}}');
+            ->hasViews('{{package}}')
+            ->hasAssets();
+    }
+
+    public function packageRegistered(): void
+    {
+        $this->registerDirectives();
+    }
+
+    protected function registerDirectives(): void
+    {
+        $packageName = $this->package->name;
+
+        Blade::directive('vitePackage', function (string $entries) use ($packageName) {
+            return <<<PHP
+            <?php use Illuminate\Support\Facades\Vite; ?>
+            <?php echo Vite::useHotFile(public_path('vendor/{$packageName}/hot'))
+                        ->useBuildDirectory('vendor/{$packageName}')
+                        ->withEntryPoints($entries)->toHtml();
+            ?>
+            PHP;
+        });
     }
 }
