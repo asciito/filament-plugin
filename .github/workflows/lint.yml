@@ -32,10 +32,11 @@ jobs:
           extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv
           coverage: none
 
-      # Remove when plugin is initialized
+      # <!--DELETE-->
       - name: Initialize Plugin
         run: |
           ./plugin init asciito filament-plugin-test "Ayax Córdova" example@mail.com "This is a short description" --no-interaction
+      # <!--/DELETE-->
 
       - name: Install Dependencies
         run: |
