@@ -15,13 +15,13 @@ migration:
   prefix: ''
 
 console:
-  namespace: {{Vendor}}\{{Package}}\Console
+  namespace: {{Namespace}}\Console
 
 model:
-  namespace: {{Vendor}}\{{Package}}\Models
+  namespace: {{Namespace}}\Models
 
 provider:
-  namespace: {{Vendor}}\{{Vendor}}\Providers
+  namespace: {{Namespace}}\Providers
 
 testing:
-  namespace: {{Vendor}}\{{Vendor}}\Tests
+  namespace: {{Namespace}}\Tests
